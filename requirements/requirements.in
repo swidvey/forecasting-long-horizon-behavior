@@ -1,0 +1,4 @@
+# Runtime dependencies are declared once, in pyproject.toml [project.dependencies].
+# This file exists only as the pip-compile entry point. To (re)compile:
+#   pip-compile --generate-hashes --strip-extras --allow-unsafe -o requirements/requirements.txt pyproject.toml
+#   pip-compile --generate-hashes --strip-extras --allow-unsafe --extra dev -o requirements/dev-requirements.txt pyproject.toml
