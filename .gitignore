@@ -1,0 +1,33 @@
+# Private context (mock notebooks, build plan) -- never committed
+context/
+
+# Terraform
+*.tfstate*
+.terraform/
+*.tfvars
+.terraform.lock.hcl.backup
+
+# Credentials guard: no JSON is expected in this repo; anything that looks
+# like a downloaded key or token stays out by default.
+*.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+
+# Compiled pipeline specs are build artifacts (CLAUDE.md hard rule)
+pipelines/compiled/
+*.pipeline.yaml
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
