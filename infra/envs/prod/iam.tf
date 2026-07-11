@@ -18,12 +18,12 @@
 
 resource "google_project_iam_member" "terraform_sa_roles" {
   for_each = toset([
-    "roles/bigquery.admin",                # datasets + dataset IAM
-    "roles/storage.admin",                 # buckets + bucket IAM (incl. tfstate)
-    "roles/secretmanager.admin",           # secret containers + secret IAM
-    "roles/iam.serviceAccountAdmin",       # manage the component SAs
-    "roles/iam.workloadIdentityPoolAdmin", # manage the WIF pool itself
-    "roles/resourcemanager.projectIamAdmin", # project-level IAM grants in this file
+    "roles/bigquery.admin",                    # datasets + dataset IAM
+    "roles/storage.admin",                     # buckets + bucket IAM (incl. tfstate)
+    "roles/secretmanager.admin",               # secret containers + secret IAM
+    "roles/iam.serviceAccountAdmin",           # manage the component SAs
+    "roles/iam.workloadIdentityPoolAdmin",     # manage the WIF pool itself
+    "roles/resourcemanager.projectIamAdmin",   # project-level IAM grants in this file
     "roles/serviceusage.serviceUsageConsumer", # call enabled APIs
   ])
 
