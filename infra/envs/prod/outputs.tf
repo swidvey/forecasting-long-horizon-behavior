@@ -13,6 +13,11 @@ output "buckets" {
   value       = module.gcs.names
 }
 
+output "wif_provider" {
+  description = "Workload identity provider resource name (used by the GitHub Actions auth step)."
+  value       = module.wif.provider_name
+}
+
 output "secrets" {
   description = "Secret Manager containers (values added out-of-band)."
   value       = module.secrets.secret_ids
