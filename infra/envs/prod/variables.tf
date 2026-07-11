@@ -10,6 +10,12 @@ variable "region" {
   default     = "us-central1"
 }
 
+variable "github_repository" {
+  description = "GitHub repo (owner/name) allowed to deploy via WIF."
+  type        = string
+  default     = "swidvey/forecasting-long-horizon-behavior"
+}
+
 variable "labels" {
   description = "Common labels for all resources."
   type        = map(string)
