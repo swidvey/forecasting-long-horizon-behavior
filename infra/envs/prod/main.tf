@@ -62,6 +62,13 @@ module "gcs" {
   }
 }
 
+module "wif" {
+  source                = "../../modules/wif"
+  project_id            = var.project_id
+  github_repository     = var.github_repository
+  service_account_email = module.iam.emails["terraform-sa"]
+}
+
 module "secrets" {
   source     = "../../modules/secrets"
   project_id = var.project_id

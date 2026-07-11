@@ -8,6 +8,35 @@
 # terraform-sa gets NO grants yet: its roles arrive with WIF setup (next
 # session) so CI-deploy permissions are reviewed as one changeset.
 
+# -------------------------------------------------------------- terraform-sa
+# Deploy identity for CI (impersonated via WIF -- see modules/wif). These
+# roles let it manage exactly what this configuration manages, and nothing
+# it doesn't. Honest caveat: projectIamAdmin can grant roles, which is
+# inherently powerful; acceptable for a single-owner project, and every
+# grant it makes lands in reviewed Terraform anyway. A locked-down custom
+# role is the enterprise refinement.
+
+resource "google_project_iam_member" "terraform_sa_roles" {
+  for_each = toset([
+    "roles/bigquery.admin",                # datasets + dataset IAM
+    "roles/storage.admin",                 # buckets + bucket IAM (incl. tfstate)
+    "roles/secretmanager.admin",           # secret containers + secret IAM
+    "roles/iam.serviceAccountAdmin",       # manage the component SAs
+    "roles/iam.workloadIdentityPoolAdmin", # manage the WIF pool itself
+    "roles/resourcemanager.projectIamAdmin", # project-level IAM grants in this file
+    "roles/serviceusage.serviceUsageConsumer", # call enabled APIs
+  ])
+
+  project = var.project_id
+  role    = each.value
+  member  = module.iam.members["terraform-sa"]
+}
+
+# Human impersonation of terraform-sa is intentionally NOT bound here: the
+# project owner already applies with their own ADC, and adding the binding
+# would publish a personal email in a public repo. Revisit if a second
+# human ever needs deploy rights.
+
 # ---------------------------------------------------------------- ingest-sa
 # Writes raw files to GCS, loads BQ raw, transforms into staging.
 
